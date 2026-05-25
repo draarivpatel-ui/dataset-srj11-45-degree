@@ -1,10 +1,10 @@
 # dataset-srj11-45-degree
 45 Degree Autorouting Problem Dataset (validates an autorouter has good 45-degree obstacle support)
 
-This repo is now scaffolded as a regular `tscircuit` project with twenty
+This repo is now scaffolded as a regular `tscircuit` project with twenty-six
 single-net obstacle samples under `circuits/`. Each sample uses two
-`<testpoint />` endpoints and one routed trace, with rotated custom-footprint
-chips acting as the blocking geometry.
+endpoint pads and one routed trace, with rotated custom-footprint chips acting
+as the blocking geometry.
 
 Current samples:
 
@@ -28,6 +28,12 @@ Current samples:
 - `sample018`: ten-obstacle guarded ring aperture with sentries in the corridor
 - `sample019`: ten-obstacle asymmetric scatter field blocking a diagonal net
 - `sample020`: ten-obstacle zigzag maze with blockers placed in every corridor segment
+- `sample021`: single-obstacle rising slot with rotated rectangular endpoints
+- `sample022`: two-obstacle rising slot with rotated rectangular endpoints
+- `sample023`: three-obstacle rising slot with a wider central passage
+- `sample024`: four-obstacle rising slot with alternating rotated rectangular blockers
+- `sample025`: five-obstacle rising slot with both endpoints inside rotated rectangular pads
+- `sample026`: six-obstacle falling slot with both route endpoints centered in rotated rectangles
 
 Usage:
 
