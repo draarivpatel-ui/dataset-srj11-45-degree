@@ -22,6 +22,28 @@ type RotatedPadObstacleProps = {
 	pcbRotation?: number;
 };
 
+type RotatedRectEndpointProps = {
+	name: string;
+	pcbX: number;
+	pcbY: number;
+	padWidth?: number | string;
+	padHeight?: number | string;
+	pcbRotation?: number;
+};
+
+type RotatedRectEndpointBoardProps = {
+	width: number | string;
+	height: number | string;
+	start: Point;
+	end: Point;
+	startRotation?: number;
+	endRotation?: number;
+	endpointWidth?: number | string;
+	endpointHeight?: number | string;
+	traceRouteHints?: Point[];
+	children?: any;
+};
+
 type DiagonalTwinPadObstacleProps = {
 	name: string;
 	pcbX: number;
@@ -93,6 +115,67 @@ export const RotatedPadObstacle = ({
 			</footprint>
 		}
 	/>
+);
+
+export const RotatedRectEndpoint = ({
+	name,
+	pcbX,
+	pcbY,
+	padWidth = 2.8,
+	padHeight = 1.35,
+	pcbRotation = 45,
+}: RotatedRectEndpointProps) => (
+	<chip
+		name={name}
+		pcbX={pcbX}
+		pcbY={pcbY}
+		pcbRotation={pcbRotation}
+		pinLabels={{ pin1: "SIGNAL" }}
+		footprint={
+			<footprint>
+				<smtpad
+					portHints={["pin1"]}
+					shape="rect"
+					width={padWidth}
+					height={padHeight}
+				/>
+			</footprint>
+		}
+	/>
+);
+
+export const RotatedRectEndpointBoard = ({
+	width,
+	height,
+	start,
+	end,
+	startRotation = 45,
+	endRotation = 45,
+	endpointWidth,
+	endpointHeight,
+	traceRouteHints,
+	children,
+}: RotatedRectEndpointBoardProps) => (
+	<board width={width} height={height} layers={2} routingDisabled>
+		<RotatedRectEndpoint
+			name="EP1"
+			pcbX={start.x}
+			pcbY={start.y}
+			padWidth={endpointWidth}
+			padHeight={endpointHeight}
+			pcbRotation={startRotation}
+		/>
+		<RotatedRectEndpoint
+			name="EP2"
+			pcbX={end.x}
+			pcbY={end.y}
+			padWidth={endpointWidth}
+			padHeight={endpointHeight}
+			pcbRotation={endRotation}
+		/>
+		{children}
+		<trace from="EP1.pin1" to="EP2.pin1" pcbRouteHints={traceRouteHints} />
+	</board>
 );
 
 export const DiagonalTwinPadObstacle = ({
